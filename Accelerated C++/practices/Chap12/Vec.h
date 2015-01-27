@@ -1,6 +1,8 @@
-#pragma once
+#ifndef GUARD_Vec_h
+#define GUARD_Vec_h
 
 #include <algorithm>
+#include <iostream>
 #include <cstddef>
 #include <memory>
 
@@ -18,7 +20,10 @@ public:
     Vec() { create(); }
     explicit Vec(size_type n, const T& t = T()) { create(n, t); }
 
-    Vec(const Vec& v) { create(v.begin(), v.end()); }
+    Vec(const Vec& v) { 
+        prt("Vec copy constructor called");
+        create(v.begin(), v.end()); 
+    }
     Vec& operator=(const Vec&);
     ~Vec() { uncreate(); }
 
@@ -53,6 +58,11 @@ public:
             it++;
         }
         --avail;
+    }
+
+    void prt(const char* p) {
+        std::cout << p << std::endl;
+        return;
     }
 
 private:
@@ -119,9 +129,12 @@ template <class T> void Vec<T>::unchecked_append(const T& val) {
 }
 
 template <class T> Vec<T>& Vec<T>::operator=(const Vec& rhs) {
+    prt("Vec operator= called");
     if (&rhs != this) {
         uncreate();
         create(rhs.begin(), rhs.end());
     }
     return *this;
 }
+
+#endif
