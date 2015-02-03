@@ -7,7 +7,6 @@ using namespace std;
 //Student_info
 
 std::istream& Student_info::read(std::istream& is) {
-    delete cp;
     char ch;
     is >> ch;
     if (is) {
@@ -22,11 +21,13 @@ std::istream& Student_info::read(std::istream& is) {
             throw runtime_error("invalid student type");
         }
     } else {
-        cp = 0;
+        //cp = Ref_handle<Core>();
+        cp = Ptr<Core>();
     }
     return is;
 }
 
+/*
 Student_info::Student_info(const Student_info& s): cp(0) {
     std::cerr << "Student_info::Student_info(const S_i)" << std::endl;
     if (s.cp) cp = s.cp->clone();
@@ -51,6 +52,7 @@ Student_info& Student_info::operator=(const Student_info& s) {
     }
     return *this;
 }
+*/
 
 //Core
 

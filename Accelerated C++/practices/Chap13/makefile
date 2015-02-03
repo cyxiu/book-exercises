@@ -27,6 +27,12 @@ main0: main0.o grade.o Student_info.o
 13-2: 13-2.o grade.o Student_info.o 
 	$(CXX) $(CXXFLAGS) 13-2.o grade.o Student_info.o -o 13-2
 
+copy_test.o: copy_test.cpp Student_info.h grade.h median.h
+	$(CXX) $(CXXFLAGS) -c copy_test.cpp
+
+copy_test: copy_test.o grade.o Student_info.o 
+	$(CXX) $(CXXFLAGS) copy_test.o grade.o Student_info.o -o copy_test
+
 clean:
 	rm -f *.o main0
 
@@ -38,3 +44,6 @@ test1: 13-1
 
 test2: all
 	./main0 < ./mixed_grades_4
+
+test_copy: copy_test
+	./copy_test < ./1grades

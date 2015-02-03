@@ -9,23 +9,27 @@
 #include <stdexcept>
 
 #include "grade.h"
+#include "Ptr.h"
 
 class Core {
     friend class Student_info;
+    //friend class Handle<Core>;
+    //friend class Ref_handle<Core>;
+    friend class Ptr<Core>;
 public:
     Core(): midterm(0), final(0) {
-        std::cerr << "Core::Core()" << std::endl;
+        //std::cerr << "Core::Core()" << std::endl;
     }
     Core(std::istream& is) { 
-        std::cerr << "Core::Core(std::istream& is)" << std::endl;
+        //std::cerr << "Core::Core(std::istream& is)" << std::endl;
         read(is);
     }
     virtual ~Core() { 
-        std::cerr << "Core::~Core()" << std::endl;
+        //std::cerr << "Core::~Core()" << std::endl;
     }
 
     std::string name() const { 
-        std::cerr << "Core::name()" << std::endl;
+        //std::cerr << "Core::name()" << std::endl;
         return n; 
     }
 
@@ -42,7 +46,7 @@ public:
 
 protected:
     virtual Core* clone() const { 
-        std::cerr << "Core::clone()" << std::endl;
+        //std::cerr << "Core::clone()" << std::endl;
         return new Core(*this); 
     }
     std::istream& read_common(std::istream&);
@@ -56,10 +60,10 @@ private:
 class Grad: public Core {
 public:
     Grad(): thesis(0) {
-        std::cerr << "Grad::Grad()" << std::endl;
+        //std::cerr << "Grad::Grad()" << std::endl;
     }
     Grad(std::istream& is) { 
-        std::cerr << "Grad::Grad(std::istream& is)" << std::endl;
+        //std::cerr << "Grad::Grad(std::istream& is)" << std::endl;
         read(is); 
     }
 
@@ -71,7 +75,7 @@ public:
     std::istream& read(std::istream&);
 protected:
     Grad* clone() const {
-        std::cerr << "Grad::clone()" << std::endl;
+        //std::cerr << "Grad::clone()" << std::endl;
         return new Grad(*this);
     }
 private:
@@ -119,24 +123,26 @@ bool compare_grades(const Core&, const Core&);
 
 class Student_info {
 public:
-    Student_info(): cp(0) { 
-        std::cerr << "Student_info::Student_info()" << std::endl;
+    Student_info() { 
+        //std::cerr << "Student_info::Student_info()" << std::endl;
     }
-    Student_info(std::istream& is): cp(0) {
-        std::cerr << "Student_info::Student_info(istream)" << std::endl;
+    Student_info(std::istream& is) {
+        //std::cerr << "Student_info::Student_info(istream)" << std::endl;
         read(is); 
     }
+    /*
     Student_info(const Student_info&);
     Student_info& operator=(const Student_info&);
     ~Student_info() { 
-        std::cerr << "Student_info::~Student_info()" << std::endl;
+        //std::cerr << "Student_info::~Student_info()" << std::endl;
         delete cp; 
     }
     //for a buggin test see copy_test.cpp
     Student_info(Core* c) {
-        std::cerr << "Student_info::Student_info(Core*)" << std::endl;
+        //std::cerr << "Student_info::Student_info(Core*)" << std::endl;
         cp = c;
     }
+    */
 
     std::istream& read(std::istream&);
 
@@ -177,7 +183,7 @@ public:
     }
 
 private:
-    Core* cp;
+    Ptr<Core> cp;
 };
 
 #endif
