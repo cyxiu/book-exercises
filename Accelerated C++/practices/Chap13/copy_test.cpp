@@ -23,7 +23,7 @@ int main() {
     cout << "about to new/assignment" << endl;
 
     si = new Core(cin);
-    /*
+    /*  guessed output
     Core(istream)   generate a new Core() return a Core*
     S_i(Core*)      automatic conversion because S_i has a constructor taking Core*
     S_i::oper=(const S_i&)  starting the assignment
@@ -33,9 +33,7 @@ int main() {
     ~Core           destroy the Core object in it
     */
 
-    //actual output
-
-    /*
+    /*actual output
     Student_info::Student_info()
     Core::Core(std::istream& is)
         about to new/assignment
